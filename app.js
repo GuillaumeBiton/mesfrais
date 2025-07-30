@@ -4,7 +4,7 @@ const app = new Framework7({
   // App Name
   name: 'Mes frais',
   // App default theme
-  theme: auto,
+  theme: 'auto',
   // Add default routes
   routes: [],
   // ... other parameters
