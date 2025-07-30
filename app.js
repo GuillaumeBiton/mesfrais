@@ -15,7 +15,7 @@ const popup = app.popup.create({ el: '#crop-popup' });
 
 document.getElementById('photo-input').addEventListener('change', (event) => {
   const file = event.target.files[0];
-  if (!file || !file.type.match(/^image\\/(jpeg|png)$/)) {
+  if (!file || !file.type.match(/^image\\/(jpeg|png)/)) {
     app.dialog.alert("Format non pris en charge. JPEG ou PNG uniquement.");
     return;
   }
