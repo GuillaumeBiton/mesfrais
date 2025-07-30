@@ -6,7 +6,7 @@ const app = new Framework7({
   // App default theme
   theme: 'auto',
   // App DarkMode
-  darkMode: 'auto',n
+  darkMode: 'auto',
   // Add default routes
   routes: [],
   // ... other parameters
