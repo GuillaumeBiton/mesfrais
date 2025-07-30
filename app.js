@@ -4,11 +4,6 @@ const app = new Framework7({
   // App Name
   name: 'My App',
   // Add default routes
-  routes: [
-    {
-      path: '/about/',
-      url: 'about.html',
-    },
-  ],
+  routes: [],
   // ... other parameters
 });
