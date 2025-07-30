@@ -50,6 +50,7 @@ document.getElementById('validate-crop').addEventListener('click', async () => {
     const text = result.data.text;
     console.log("Texte OCR :", text);
     const match = text.match(/(?:total\\s*(?:ttc)?|montant\\s*(?:à\\s*payer)?)[^\\d]{0,10}([\\d\\s,.]+)/i);
+    console.log(match)
     const montant = match ? match[1].trim() : null;
 
     if (montant) {
