@@ -24,12 +24,18 @@ document.getElementById('photo-input').addEventListener('change', (event) => {
 
     img.onload = () => {
       if (cropper) cropper.destroy(); // détruire l’ancien si nécessaire
-      cropper = new Cropper(img, {
-        aspectRatio: NaN, // libre
-        viewMode: 1,
+      detectTicketContour(img, (rect) => {
+        cropper = new Cropper(img, {
+          viewMode: 1,
+          data: rect ? {
+            x: rect.x,
+            y: rect.y,
+            width: rect.width,
+            height: rect.height
+        } : undefined
       });
-      popup.open(); // ouvrir le popup de recadrage
-    };
+      popup.open();
+      });
   };
   reader.readAsDataURL(file);
 });
@@ -71,3 +77,36 @@ document.getElementById('validate-crop').addEventListener('click', async () => {
 document.getElementById('photo-btn').addEventListener('click', () => {
   document.getElementById('photo-input').click();
 });
+
+function detectTicketContour(imageEl, callback) {
+  const src = cv.imread(imageEl);
+  const dst = new cv.Mat();
+  cv.cvtColor(src, src, cv.COLOR_RGBA2GRAY, 0);
+  cv.GaussianBlur(src, src, new cv.Size(5, 5), 0);
+  cv.Canny(src, dst, 50, 150);
+
+  const contours = new cv.MatVector();
+  const hierarchy = new cv.Mat();
+  cv.findContours(dst, contours, hierarchy, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE);
+
+  let biggestContour = null;
+  let maxArea = 0;
+  for (let i = 0; i < contours.size(); i++) {
+    const cnt = contours.get(i);
+    const area = cv.contourArea(cnt);
+    if (area > maxArea) {
+      maxArea = area;
+      biggestContour = cnt;
+    }
+  }
+
+  if (biggestContour) {
+    const rect = cv.boundingRect(biggestContour);
+    callback(rect); // rect.x, rect.y, rect.width, rect.height
+  } else {
+    callback(null);
+  }
+
+  // nettoyage
+  src.delete(); dst.delete(); contours.delete(); hierarchy.delete();
+}
