@@ -23,7 +23,7 @@ document.getElementById('photo-input').addEventListener('change', async (event) 
     const img = new Image();
     img.src = reader.result;
     img.onload = async () => {
-      document.getElementById('preview-container').innerHTML = `<div style="background: url(${img.src}); background-size: cover;" />`;
+      document.getElementById('preview-container').innerHTML = `<img src="${img.src}" />`;
 
       const result = await Tesseract.recognize(img, 'fra');
       const text = result.data.text;
