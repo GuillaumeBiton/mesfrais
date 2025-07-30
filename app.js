@@ -49,10 +49,13 @@ document.getElementById('validate-crop').addEventListener('click', async () => {
 
     const text = result.data.text;
     console.log("Texte OCR :", text);
-    const match = text.match(/(?:total\\s*(?:ttc)?|montant\\s*(?:à\\s*payer)?)[^\\d]{0,10}([\\d\\s,.]+)/i);
-    console.log(match)
-    const montant = match ? match[1].trim() : null;
-
+    // const match = text.match(/(?:total\\s*(?:ttc)?|montant\\s*(?:à\\s*payer)?)[^\\d]{0,10}([\\d\\s,.]+)/i);
+    // const montant = match ? match[1].trim() : null;
+    const montantRegex = /(\d+[.,]\d{2})/g;
+    const montants = text.match(montantRegex);
+    const montant = montants ? montants[montants.length - 1] : null;
+    console.log(montants)
+    
     if (montant) {
       app.dialog.alert(`Montant TTC détecté : ${montant}`, 'OCR réussi');
     } else {
