@@ -1,0 +1,5 @@
+{
+  "name": "Mon Site Web",
+  "forwardPorts": [3000],
+  "postCreateCommand": "npx http-server --port=3000"
+}
