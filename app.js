@@ -5,6 +5,8 @@ const app = new Framework7({
   name: 'Mes frais',
   // App default theme
   theme: 'auto',
+  // App DarkMode
+  darkMode: 'auto',
   // Add default routes
   routes: [],
   // ... other parameters
