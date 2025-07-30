@@ -12,3 +12,5 @@ var app = new Framework7({
   ],
   // ... other parameters
 });
+
+var mainView = app.views.create('.view-main');
