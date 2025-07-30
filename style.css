@@ -1,5 +1,5 @@
 .demo-card-pic {
-  height: 40vw;
+  height: 400px;
   background-size: cover;
   background-position: center;
   border-radius: var(--f7-card-expendable-border-radius);
