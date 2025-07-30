@@ -2,4 +2,5 @@
   height: 40vw;
   background-size: cover;
   background-position: center;
+  border-radius: var(--f7-card-expendable-border-radius);
 }
