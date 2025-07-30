@@ -1,4 +1,5 @@
 .demo-card-pic {
   height: 20vw;
   border-radius: var(--f7-card-border-radius);
+  text-align: center;
 }
