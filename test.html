@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-t">
+    <title>Détection de Document avec OpenCV.js</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 2em; }
+        .container { display: flex; flex-wrap: wrap; gap: 20px; }
+        .canvas-container { border: 1px solid #ccc; padding: 10px; }
+        h3 { text-align: center; }
+    </style>
+</head>
+<body>
+
+    <h2>Détecteur de Document avec OpenCV.js</h2>
+    <p>Choisissez une image contenant un document. Le script tentera de détecter ses bords et d'appliquer une correction de perspective.</p>
+
+    <input type="file" id="fileInput" accept="image/*">
+    <hr>
+
+    <div class="container">
+        <div class="canvas-container">
+            <h3>Image Originale</h3>
+            <canvas id="canvasOutput"></canvas>
+        </div>
+        <div class="canvas-container">
+            <h3>Contours Détectés</h3>
+            <canvas id="canvasContours"></canvas>
+        </div>
+        <div class="canvas-container">
+            <h3>Document Scanné</h3>
+            <canvas id="canvasScanned"></canvas>
+        </div>
+    </div>
+
+   <script async src="https://docs.opencv.org/4.5.5/opencv.js" onload="onOpenCvReady();"></script>
+    <script src="doc_detector.js"></script>
+
+</body>
+</html>
