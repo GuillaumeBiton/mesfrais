@@ -38,7 +38,7 @@ document.getElementById('photo-input').addEventListener('change', (event) => {
       });
   };
   reader.readAsDataURL(file);
-});
+};
 
 document.getElementById('validate-crop').addEventListener('click', async () => {
   const canvas = cropper.getCroppedCanvas();
