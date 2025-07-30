@@ -54,34 +54,54 @@ document.getElementById('photo-input').addEventListener('change', (event) => {
 function detectTicketContour(imageEl, callback) {
   try {
     const src = cv.imread(imageEl);
-    const dst = new cv.Mat();
-    cv.cvtColor(src, src, cv.COLOR_RGBA2GRAY, 0);
-    cv.GaussianBlur(src, src, new cv.Size(5, 5), 0);
-    cv.Canny(src, dst, 50, 150);
+    const original = src.clone();
 
+    // Resize
+    const maxWidth = 800;
+    if (src.cols > maxWidth) {
+      const scale = maxWidth / src.cols;
+      const newSize = new cv.Size(src.cols * scale, src.rows * scale);
+      cv.resize(src, src, newSize);
+    }
+
+    // Gris + amélioration contraste
+    cv.cvtColor(src, src, cv.COLOR_RGBA2GRAY, 0);
+    const clahe = new cv.createCLAHE(2.0, new cv.Size(8, 8));
+    clahe.apply(src, src);
+
+    // Flou + Canny
+    cv.GaussianBlur(src, src, new cv.Size(5, 5), 0);
+    const edges = new cv.Mat();
+    cv.Canny(src, edges, 50, 150);
+
+    // Recherche contours
     const contours = new cv.MatVector();
     const hierarchy = new cv.Mat();
-    cv.findContours(dst, contours, hierarchy, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE);
+    cv.findContours(edges, contours, hierarchy, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE);
 
-    let biggestContour = null;
+    let biggest = null;
     let maxArea = 0;
+
     for (let i = 0; i < contours.size(); i++) {
       const cnt = contours.get(i);
+      const peri = cv.arcLength(cnt, true);
+      const approx = new cv.Mat();
+      cv.approxPolyDP(cnt, approx, 0.02 * peri, true);
       const area = cv.contourArea(cnt);
-      if (area > maxArea) {
+
+      if (approx.rows === 4 && area > maxArea && cv.isContourConvex(approx)) {
         maxArea = area;
-        biggestContour = cnt;
+        biggest = cv.boundingRect(approx);
       }
+
+      approx.delete();
     }
 
-    if (biggestContour) {
-      const rect = cv.boundingRect(biggestContour);
-      callback(rect);
-    } else {
-      callback(null);
-    }
+    callback(biggest || null);
 
-    src.delete(); dst.delete(); contours.delete(); hierarchy.delete();
+    // Nettoyage mémoire
+    src.delete(); original.delete(); edges.delete();
+    contours.delete(); hierarchy.delete(); clahe.delete();
   } catch (err) {
     console.error("Erreur OpenCV :", err);
     callback(null);
