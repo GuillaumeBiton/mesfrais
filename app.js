@@ -9,3 +9,7 @@ const app = new Framework7({
   routes: [],
   // ... other parameters
 });
+
+document.getElementById('photo-btn').addEventListener('click', () => {
+  document.getElementById('photo-input').click();
+});
