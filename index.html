@@ -40,9 +40,28 @@
 
           <!-- Scrollable page content -->
           <div class="page-content">
-            <p>Page content goes here</p>
-            <!-- Link to another page -->
-            <a href="/about/">About app</a>
+            <form id="note-form">
+            <div class="list no-hairlines-md">
+              <ul>
+                <li class="item-content item-input">
+                  <div class="item-inner">
+                    <div class="item-title item-label">Motif du déplacement</div>
+                    <div class="item-input-wrap">
+                      <input type="text" id="motif" placeholder="Entrez le motif" required />
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <button class="button button-fill" type="button" id="photo-btn">Prendre une photo</button>
+                  <input type="file" accept="image/*" capture="environment" id="photo-input" hidden />
+                </li>
+              </ul>
+            </div>
+            <div id="preview-container"></div>
+            <div class="block">
+              <button class="button button-fill" type="submit">Enregistrer</button>
+            </div>
+            </form>
           </div>
         </div>
       </div>
