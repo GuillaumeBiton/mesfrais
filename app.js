@@ -89,7 +89,7 @@ function detectTicketContour(imageEl, callback) {
       cv.approxPolyDP(cnt, approx, 0.02 * peri, true);
       const area = cv.contourArea(cnt);
 
-      if (approx.rows === 4 && area > maxArea && cv.isContourConvex(approx)) {
+      if (approx.rows >= 4 && area > maxArea && area > 10000) {
         maxArea = area;
         biggest = cv.boundingRect(approx);
       }
