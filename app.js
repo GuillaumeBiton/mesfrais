@@ -1,4 +1,4 @@
-var app = new Framework7({
+const app = new Framework7({
   // App root element
   el: '#app',
   // App Name
