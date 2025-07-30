@@ -28,6 +28,7 @@ document.getElementById('photo-input').addEventListener('change', (event) => {
       if (cropper) cropper.destroy();
 
       if (typeof cv !== 'undefined') {
+        console.log('CV is here');
         // OpenCV déjà chargé
         detectTicketContour(img, (rect) => {
           cropper = new Cropper(img, {
@@ -42,6 +43,7 @@ document.getElementById('photo-input').addEventListener('change', (event) => {
           popup.open();
         });
       } else {
+        console.log('fallback');
         // Fallback sans OpenCV
         cropper = new Cropper(img, {
           viewMode: 1

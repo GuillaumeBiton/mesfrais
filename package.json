@@ -4,12 +4,12 @@
   "description": "",
   "main": "index.html",
   "scripts": {
-    "start": "http-server -p 8080",
+    "start": "npx vite",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "http-server": "^14.1.1"
+    "vite": "^7.0.6"
   }
 }
