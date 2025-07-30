@@ -3,10 +3,6 @@ var app = new Framework7({
   el: '#app',
   // App Name
   name: 'My App',
-  // Enable swipe panel
-  panel: {
-    swipe: true,
-  },
   // Add default routes
   routes: [
     {
