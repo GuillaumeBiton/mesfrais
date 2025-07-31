@@ -217,6 +217,8 @@ function docDetection(imgElement, callback) {
         contour.delete();
     }
     
+    console.log(JSON.stringify(biggestContour));
+    
     if (biggestContour) {
         // 5. Appliquer la transformation de perspective
         const points = [];
