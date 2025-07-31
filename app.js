@@ -218,14 +218,6 @@ function docDetection(imgElement, callback) {
     }
     
     if (biggestContour) {
-        // Dessiner le contour trouvé sur une copie de l'image
-        // const contoursCanvas = original.clone();
-        // const color = new cv.Scalar(0, 255, 0, 255); // Vert
-        // cv.drawContours(contoursCanvas, contours, contours.size() -1, color, 2, cv.LINE_8, hierarchy, 100);
-        // cv.imshow('canvasContours', contoursCanvas);
-        // contoursCanvas.delete();
-        
-
         // 5. Appliquer la transformation de perspective
         const points = [];
         for (let i = 0; i < biggestContour.rows; i++) {
@@ -262,7 +254,6 @@ function docDetection(imgElement, callback) {
 
         let rect = { x: tl.x, y: tl.y, width: maxWidth, height: maxHeight};
         callback(rect || null)
-        // cv.imshow('canvasScanned', warped);
 
         // Libérer la mémoire
         srcMat.delete();
@@ -272,11 +263,6 @@ function docDetection(imgElement, callback) {
         biggestContour.delete();
     } else {
         console.warn("Aucun contour de document trouvé.");
-        // Nettoyer les canvas si aucun document n'est trouvé
-        const canvasContours = document.getElementById('canvasContours');
-        const canvasScanned = document.getElementById('canvasScanned');
-        canvasContours.getContext('2d').clearRect(0, 0, canvasContours.width, canvasContours.height);
-        canvasScanned.getContext('2d').clearRect(0, 0, canvasScanned.width, canvasScanned.height);
     }
 
     // Libérer la mémoire des matrices principales
