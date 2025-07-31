@@ -212,12 +212,11 @@ function docDetection(imgElement, callback) {
                 biggestContour = approx;
             } else {
                 approx.delete();
-            }
+            }  
         }
+        console.log(contour);
         contour.delete();
     }
-    
-    console.log(JSON.stringify(cv));
 
     if (biggestContour) {
         // 5. Appliquer la transformation de perspective
