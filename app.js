@@ -218,7 +218,7 @@ function docDetection(imgElement, callback) {
     }
     
     console.log(JSON.stringify(biggestContour));
-    
+
     if (biggestContour) {
         // 5. Appliquer la transformation de perspective
         const points = [];
@@ -265,6 +265,7 @@ function docDetection(imgElement, callback) {
         biggestContour.delete();
     } else {
         console.warn("Aucun contour de document trouvé.");
+        callback(null);
     }
 
     // Libérer la mémoire des matrices principales
