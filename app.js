@@ -214,7 +214,6 @@ function docDetection(imgElement, callback) {
                 approx.delete();
             }  
         }
-        console.log(contour);
         contour.delete();
     }
 
